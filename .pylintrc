@@ -19,7 +19,7 @@ disable=raw-checker-failed,
 
 [FORMAT]
 max-line-length=80
-indent-string=" "
+indent-string="    "
 
 [REFACTORING]
 max-nested-blocks=2
