@@ -18,6 +18,8 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: Run Pylint
+        run: poetry run pylint $(git ls-files '*.py') --fail-under=10.0
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
       - name: Coverage report
