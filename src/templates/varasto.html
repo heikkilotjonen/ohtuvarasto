@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ data.nimi }} - Ohtuvarasto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ data.nimi }}</h1>
+    <div class="info-box">
+        <p><strong>Saldo:</strong> {{ data.varasto.saldo }}</p>
+        <p><strong>Tilavuus:</strong> {{ data.varasto.tilavuus }}</p>
+        <p><strong>Tilaa jäljellä:</strong> {{ data.varasto.paljonko_mahtuu() }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Lisää varastoon</h2>
+    <form action="{{ url_for('add_to_varasto', varasto_id=data.id) }}" method="post">
+        <div class="form-group">
+            <label for="lisaa_maara">Määrä:</label>
+            <input type="number" id="lisaa_maara" name="maara" step="0.1" min="0.1" required>
+        </div>
+        <button type="submit" class="btn btn-success">Lisää</button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Ota varastosta</h2>
+    <form action="{{ url_for('take_from_varasto', varasto_id=data.id) }}" method="post">
+        <div class="form-group">
+            <label for="ota_maara">Määrä:</label>
+            <input type="number" id="ota_maara" name="maara" step="0.1" min="0.1" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Ota</button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Toiminnot</h2>
+    <a href="{{ url_for('edit_varasto', varasto_id=data.id) }}" class="btn btn-secondary">Muokkaa varastoa</a>
+    <form action="{{ url_for('delete_varasto', varasto_id=data.id) }}" method="post" class="inline-form">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Haluatko varmasti poistaa tämän varaston?')">Poista varasto</button>
+    </form>
+</div>
+{% endblock %}
